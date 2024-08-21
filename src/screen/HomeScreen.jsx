@@ -7,13 +7,8 @@ import {
   FlatList,
 } from 'react-native';
 import React from 'react';
-
 import {colors} from '../constants/colors';
-import {fontFamilies} from '../constants/fonts';
-
 import Header from '../components/Header';
-import SongCard from '../components/SongCard';
-import {spacing} from '../constants/dimensions';
 import SongCardWithCategory from '../components/SongCardWithCategory';
 import FloatingPlayer from '../components/FloatingPlayer';
 

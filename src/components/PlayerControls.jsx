@@ -14,7 +14,7 @@ export const GoToPreviousButton = () => {
 };
 
 export const PlayPauseButton = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
 
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying);
