@@ -5,7 +5,7 @@ import {spacing} from '../constants/dimensions';
 import {fontFamilies} from '../constants/fonts';
 import TrackPlayer from 'react-native-track-player';
 
-const SongCardWithCategory = ({item}) => {
+const SongCardWithCategory = ({item, setCurrentTrack}) => {
   // create a function that play a song in queue
   const handlePlayTrack = async (selectedTrack, songs = item.songs) => {
     // Find the index of the selected track in the songs array
@@ -29,6 +29,8 @@ const SongCardWithCategory = ({item}) => {
 
     // Start playback
     await TrackPlayer.play();
+
+    setCurrentTrack(selectedTrack);
   };
   return (
     <View>

@@ -20,15 +20,12 @@ import {colors} from '../constants/colors';
 import MovingText from './MovingText';
 import {useNavigation} from '@react-navigation/native';
 
-const imageUrl =
-  'https://img.freepik.com/premium-photo/young-boy-looking-universe-from-earth-ai-generative_955712-1514.jpg';
-
-const FloatingPlayer = () => {
+const FloatingPlayer = ({track}) => {
   const navigation = useNavigation();
 
-  const progress = useSharedValue(30);
+  const progress = useSharedValue(0);
   const min = useSharedValue(0);
-  const max = useSharedValue(100);
+  const max = useSharedValue(1);
 
   const translateX = useSharedValue(0);
 
@@ -72,14 +69,14 @@ const FloatingPlayer = () => {
         style={styles.container}
         activeOpacity={0.75}
         onPress={handleOpenPlayerScreen}>
-        <Image source={{uri: imageUrl}} style={styles.coverImage} />
+        <Image source={{uri: track.artwork}} style={styles.coverImage} />
         <View style={styles.titleArtistContainer}>
           <MovingText
-            text={'Lose yourself and Magic is building'}
+            text={track.title}
             animationThreshold={15}
             style={styles.songText}
           />
-          <Text style={styles.artistText}>E m i n e m</Text>
+          <Text style={styles.artistText}>{track.artist}</Text>
         </View>
         <View style={styles.playerControlContainer}>
           <GoToPreviousButton />

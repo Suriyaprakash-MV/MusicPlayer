@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -14,17 +15,24 @@ import FloatingPlayer from '../components/FloatingPlayer';
 import {songsWithCategory} from '../data/songsWithCategory';
 
 const HomeScreen = () => {
+  const [currentTrack, setCurrentTrack] = useState(null);
+
   return (
     <View style={styles.container}>
       <Header />
       <FlatList
         data={songsWithCategory}
-        renderItem={SongCardWithCategory}
+        renderItem={({item}) => (
+          <SongCardWithCategory
+            item={item}
+            setCurrentTrack={setCurrentTrack} // Pass setCurrentTrack function
+          />
+        )}
         contentContainerStyle={{
           paddingBottom: 400,
         }}
       />
-      <FloatingPlayer />
+      {currentTrack && <FloatingPlayer track={currentTrack} />}
     </View>
   );
 };
