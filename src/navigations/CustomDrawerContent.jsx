@@ -95,7 +95,7 @@ const CustomDrawerContent = props => {
           label={'Settings'}
           icon={() => (
             <Image
-              source={require('../../assets/images/settings.png')}
+              source={require('../../assets/images/settings..png')}
               style={styles.drawerItemsIcon}
             />
           )}

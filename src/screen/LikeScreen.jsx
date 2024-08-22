@@ -12,6 +12,7 @@ import {fontSizes, spacing} from '../constants/dimensions';
 import {fontFamilies} from '../constants/fonts';
 import SongCard from '../components/SongCard';
 import FloatingPlayer from '../components/FloatingPlayer';
+import {recommendedSongs} from '../data/songs';
 
 const LikeScreen = () => {
   return (
@@ -34,9 +35,13 @@ const LikeScreen = () => {
         ListHeaderComponent={
           <Text style={styles.headingText}>Liked Songs</Text>
         }
-        data={[1, 2, 3, 4, 5, 6, 7, 8]}
-        renderItem={() => (
+        data={recommendedSongs}
+        keyExtractor={item =>
+          item.id ? item.id.toString() : Math.random().toString()
+        }
+        renderItem={({item}) => (
           <SongCard
+            item={item}
             containerStyle={{width: '47%'}}
             imageStyle={{height: 180, width: 180}}
           />

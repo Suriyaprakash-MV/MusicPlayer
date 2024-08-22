@@ -12,6 +12,7 @@ const DrawerNavigator = () => {
       screenOptions={{
         headerShown: false,
         drawerType: 'front',
+        swipeEdgeWidth: 0,
       }}
       drawerContent={props => <CustomDrawerContent {...props} />}>
       <Drawer.Screen name="DRAWER_HOME" component={StackNavigations} />
