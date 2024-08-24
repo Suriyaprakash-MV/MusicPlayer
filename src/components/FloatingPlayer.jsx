@@ -1,6 +1,5 @@
+import React, {useEffect} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import Animated from 'react-native-reanimated';
-import React from 'react';
 import {fontSizes, spacing} from '../constants/dimensions';
 import {fontFamilies} from '../constants/fonts';
 import {
@@ -8,7 +7,7 @@ import {
   GoToPreviousButton,
   PlayPauseButton,
 } from './PlayerControls';
-import {
+import Animated, {
   Easing,
   useAnimatedStyle,
   useSharedValue,
@@ -19,6 +18,7 @@ import {Slider} from 'react-native-awesome-slider';
 import {colors} from '../constants/colors';
 import MovingText from './MovingText';
 import {useNavigation} from '@react-navigation/native';
+// import {artworkUrl, title, artist} from '../data/songs';
 
 const FloatingPlayer = ({track}) => {
   const navigation = useNavigation();
@@ -50,40 +50,46 @@ const FloatingPlayer = ({track}) => {
     );
   }, [translateX]);
 
+  // Ensure `track` has a valid artwork URL or provide a default URL
+  const artworkUrl = track?.artwork || 'https://via.placeholder.com/80';
+  const title = track?.title || 'Unknown Title';
+  const artist = track?.artist || 'Unknown Artist';
+
   return (
+    //1
     <View>
-      <View style={{zIndex: 1}}>
-        <Slider
-          style={styles.container}
-          progress={progress}
-          minimumValue={min}
-          maximumValue={max}
-          theme={{
-            minimumTrackTintColor: colors.minimumTintColor,
-            maximumTrackTintColor: colors.maximumTintColor,
-          }}
-          renderBubble={() => <View />}
-        />
+      <Slider
+        style={{zIndex: 1, marginTop: 50}}
+        progress={progress}
+        minimumValue={min}
+        maximumValue={max}
+        theme={{
+          minimumTrackTintColor: colors.minimumTintColor,
+          maximumTrackTintColor: colors.maximumTintColor,
+        }}
+        renderBubble={() => <View />}
+      />
+      <View style={styles.container}>
+        <TouchableOpacity
+          style={styles.container} //3
+          activeOpacity={0.75}
+          onPress={handleOpenPlayerScreen}>
+          <Image source={{uri: artworkUrl}} style={styles.coverImage} />
+          <View style={styles.titleArtistContainer}>
+            <MovingText
+              text={title}
+              animationThreshold={15}
+              style={styles.songText}
+            />
+            <Text style={styles.artistText}>{artist}</Text>
+          </View>
+          <View style={styles.playerControlContainer}>
+            <GoToPreviousButton />
+            <PlayPauseButton />
+            <GoToNextButton />
+          </View>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        style={styles.container}
-        activeOpacity={0.75}
-        onPress={handleOpenPlayerScreen}>
-        <Image source={{uri: track.artwork}} style={styles.coverImage} />
-        <View style={styles.titleArtistContainer}>
-          <MovingText
-            text={track.title}
-            animationThreshold={15}
-            style={styles.songText}
-          />
-          <Text style={styles.artistText}>{track.artist}</Text>
-        </View>
-        <View style={styles.playerControlContainer}>
-          <GoToPreviousButton />
-          <PlayPauseButton />
-          <GoToNextButton />
-        </View>
-      </TouchableOpacity>
     </View>
   );
 };
@@ -93,6 +99,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  // slider: {
+  //   flexDirection: 'row',
+  //   alignItems: 'center',
+  // },
+  // playerContent: {
+  //   flexDirection: 'row',
+  //   alignItems: 'center',
+  // },
   coverImage: {
     height: 80,
     width: 80,

@@ -1,3 +1,4 @@
+import React from 'react';
 import {useState} from 'react';
 import {
   StyleSheet,
@@ -7,7 +8,6 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
-import React from 'react';
 import {colors} from '../constants/colors';
 import Header from '../components/Header';
 import SongCardWithCategory from '../components/SongCardWithCategory';
